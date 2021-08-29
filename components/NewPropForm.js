@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { ethers } from 'ethers'
 import { useState } from 'react'
-import propsAbi from '../util/props-abi.json'
+import props from '../util/props.json'
 
 import { useWallet } from '../hooks/useWallet'
 
@@ -16,7 +16,7 @@ const NewPropForm = () => {
   const { provider, web3Provider, address } = useWallet()
 
   async function setScore() {
-    const contract = new ethers.Contract(PROPS_ADDRESS, propsAbi, web3Provider)
+    const contract = new ethers.Contract(PROPS_ADDRESS, props.abi, web3Provider)
     setLoading(true)
     await contract.proposeNewScore('cid', count)
     setLoading(false)
