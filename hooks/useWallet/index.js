@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useReducer } from 'react'
-import Web3modal from 'web3modal'
-import { providers } from 'ethers'
 import WalletConnectProvider from '@walletconnect/web3-provider'
-import { getChainData } from '../../util/chains'
-import { walletReducer, initialState } from './reducer'
+import {providers} from 'ethers'
+import {useCallback, useEffect, useReducer} from 'react'
+import Web3modal from 'web3modal'
+
+import {getChainData} from '../../util/chains'
+
+import {initialState, walletReducer} from './reducer'
 
 // Infura ID:
 const INFURA_ID = 'e99ae8569c9142d58b1d9047ebbed8b8'
@@ -11,29 +13,29 @@ const INFURA_ID = 'e99ae8569c9142d58b1d9047ebbed8b8'
 const DEFAULT_NETWORK = 'rinkeby'
 
 const providerOptions = {
-  walletconnect: {
-    package: WalletConnectProvider,
-    options: {
-      infuraId: INFURA_ID,
+  walletconnect : {
+    package : WalletConnectProvider,
+    options : {
+      infuraId : INFURA_ID,
     },
   },
 }
 
 export const useWallet = () => {
   const [state, dispatch] = useReducer(walletReducer, initialState)
-  const { provider, web3Provider, address, chainId } = state
+  const {provider, web3Provider, address, chainId} = state
   let web3Modal
 
   if (typeof window !== 'undefined') {
     web3Modal = new Web3modal({
-      network: DEFAULT_NETWORK,
-      cacheProvider: true,
+      network : DEFAULT_NETWORK,
+      cacheProvider : true,
       providerOptions,
-      theme: 'dark',
+      theme : 'dark',
     })
   }
 
-  const connect = useCallback(async function () {
+  const connect = useCallback(async function() {
     const provider = await web3Modal.connect()
     const web3Provider = new providers.Web3Provider(provider)
     const signer = web3Provider.getSigner()
@@ -41,57 +43,60 @@ export const useWallet = () => {
     const network = await web3Provider.getNetwork()
 
     dispatch({
-      type: 'SET_WEB3_PROVIDER',
+      type : 'SET_WEB3_PROVIDER',
       provider,
       web3Provider,
       address,
-      chainId: network.chainId,
+      chainId : network.chainId,
     })
   }, [])
 
   const disconnect = useCallback(
-    async function () {
-      await web3Modal.clearCachedProvider()
-      if (provider?.disconnect && typeof provider.disconnect === 'function') {
-        await provider.disconnect()
-      }
-      dispatch({
-        type: 'RESET_WEB3_PROVIDER',
-      })
-    },
-    [provider],
+      async function() {
+        await web3Modal.clearCachedProvider()
+        if (provider?.disconnect && typeof provider.disconnect === 'function') {
+          await provider.disconnect()
+        }
+        dispatch({
+          type : 'RESET_WEB3_PROVIDER',
+        })
+      },
+      [ provider ],
   )
 
   useEffect(() => {
     if (web3Modal.cacheProvider) {
       connect()
     }
-  }, [connect])
+  }, [ connect ])
 
   useEffect(() => {
     if (provider?.on) {
-      const handleAccountsChanged = accounts => {
-        console.log('AccountsChanged', accounts)
-        dispatch({
-          type: 'SET_ADDRESS',
-          address: accounts[0],
-        })
-      }
+      const handleAccountsChanged =
+          accounts => {
+            console.log('AccountsChanged', accounts)
+            dispatch({
+              type : 'SET_ADDRESS',
+              address : accounts[0],
+            })
+          }
 
-      const handleChainChanged = accounts => {
-        console.log('AccountsChanged', accounts)
-        dispatch({
-          type: 'SET_ADDRESS',
-          address: accounts[0],
-        })
-      }
+      const handleChainChanged =
+          accounts => {
+            console.log('AccountsChanged', accounts)
+            dispatch({
+              type : 'SET_ADDRESS',
+              address : accounts[0],
+            })
+          }
 
-      const handleDisconnect = error => {
-        console.log('disconnect', error)
-        disconnect()
-      }
+      const handleDisconnect =
+          error => {
+            console.log('disconnect', error)
+            disconnect()
+          }
 
-      provider.on('accountsChanged', handleAccountsChanged)
+                   provider.on('accountsChanged', handleAccountsChanged)
       provider.on('chainChanged', handleChainChanged)
       provider.on('disconnect', handleDisconnect)
 
@@ -103,16 +108,10 @@ export const useWallet = () => {
         }
       }
     }
-  }, [provider, disconnect])
+  }, [ provider, disconnect ])
 
   const chainData = chainId ? getChainData(chainId) : null
   return {
-    provider,
-    web3Provider,
-    address,
-    chainId,
-    chainData,
-    connect,
-    disconnect,
+    provider, web3Provider, address, chainId, chainData, connect, disconnect,
   }
 }

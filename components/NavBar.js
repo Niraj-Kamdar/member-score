@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { useWallet } from '../hooks/useWallet'
+import {useWallet} from '../hooks/useWallet'
 
 import ConnectButton from './ui/ConnectButton'
 
@@ -20,16 +20,14 @@ const NavBar = () => {
     <Wrapper>
       <h1>FWB Props</h1>
       <ul>
-        {address && <li>{address}</li>}
-        {chainId && <li>Using ({chainData.name})</li>}
-      </ul>
-      {!address && (
-        <div onClick={connect}>
-          <ConnectButton />
-        </div>
+        {address && <li>{address}</li>
+} {
+  chainId && <li>Using({chainData.name})</li>}
+      </ul> {
+    !address && (<div onClick = {connect}><ConnectButton />
+                 </div>
       )}
-    </Wrapper>
-  )
-}
+    </Wrapper>)
+  }
 
-export default NavBar
+  export default NavBar

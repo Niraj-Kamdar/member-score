@@ -1,16 +1,16 @@
-import { createGlobalStyle } from 'styled-components'
+import {createGlobalStyle} from 'styled-components'
 
 import {
+  AStyles,
   H1Styles,
   H2Styles,
   H3Styles,
   H4Styles,
   H5Styles,
   H6Styles,
-  PStyles,
-  AStyles,
   PCodeStyles,
   PreCodeStyles,
+  PStyles,
 } from './Typography'
 
 const GlobalStyles = createGlobalStyle`
