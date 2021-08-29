@@ -8,6 +8,8 @@ import { walletReducer, initialState } from './reducer'
 // Infura ID:
 const INFURA_ID = 'e99ae8569c9142d58b1d9047ebbed8b8'
 
+const DEFAULT_NETWORK = 'rinkeby'
+
 const providerOptions = {
   walletconnect: {
     package: WalletConnectProvider,
@@ -24,7 +26,7 @@ export const useWallet = () => {
 
   if (typeof window !== 'undefined') {
     web3Modal = new Web3modal({
-      network: 'mainnet',
+      network: DEFAULT_NETWORK,
       cacheProvider: true,
       providerOptions,
       theme: 'dark',

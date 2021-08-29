@@ -61,8 +61,11 @@ const GlobalStyles = createGlobalStyle`
     ${AStyles}
   }
   input {
-    padding: 40px;
-    width: 100%;
+    padding: 20px;
+  }
+  button {
+    padding: 20px;
+    cursor: pointer;
   }
   ::selection {
     background: ${props => props.theme.colors.primary050};
