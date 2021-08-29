@@ -24,7 +24,9 @@ contract MemberScore is ERC20, Ownable {
     mapping (uint => bool) public isClaimed;
     mapping (uint => Proposal) public proposals;
 
-    constructor() ERC20("FWB Reputation Token", "REP") {}
+    constructor() ERC20("FWB Reputation Token", "REP") {
+        startNewSeason();
+    }
 
     function proposeNewScore(string memory cid, uint score) public {
         require(totalSeasons > 0, "No season started yet!");

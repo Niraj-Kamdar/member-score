@@ -45,11 +45,11 @@ module.exports = {
       port: 8545, // Standard Ethereum port (default: none)
       network_id: "*", // Any network (default: none)
     },
-    kovan: {
+    rinkeby: {
       provider: () => new HDWalletProvider(process.env.PRIVATE_KEY, process.env.RPC_URL),
-      network_id: 42,
-      confirmations: 2,
-      timeoutBlocks: 500,
+      network_id: 4,
+      confirmations: 0,
+      timeoutBlocks: 2000,
       skipDryRun: true
     },
 
