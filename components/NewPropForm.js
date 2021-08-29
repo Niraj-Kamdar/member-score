@@ -1,8 +1,8 @@
-import {ethers} from 'ethers'
-import {useState} from 'react'
+import { ethers } from 'ethers'
+import { useState } from 'react'
 import styled from 'styled-components'
 
-import {useWallet} from '../hooks/useWallet'
+import { useWallet } from '../hooks/useWallet'
 import props from '../util/props.json'
 
 const PROPS_ADDRESS = '0x57d689Bc2EbcA743Be438A2597723326aAe72823'
