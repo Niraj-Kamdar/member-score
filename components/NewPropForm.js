@@ -5,7 +5,7 @@ import propsAbi from '../util/props-abi.json'
 
 import { useWallet } from '../hooks/useWallet'
 
-const PROPS_ADDRESS = 'TBD'
+const PROPS_ADDRESS = '0x57d689Bc2EbcA743Be438A2597723326aAe72823'
 
 const Wrapper = styled.div``
 
