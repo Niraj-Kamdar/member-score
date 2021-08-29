@@ -42,6 +42,7 @@ contract MemberScore is ERC20, Ownable {
     }
 
     function claim(uint nonce) public {
+        require(totalSeasons > proposals[nonce].season + 1, "REP can only be claimed once season ends!");
         require(!isClaimed[nonce], "REPs have been claimed already!");
         require(nonceToUser[nonce] == _msgSender(), "Only account owner can claim the REP!");
         _mint(_msgSender(), proposals[nonce].score);
