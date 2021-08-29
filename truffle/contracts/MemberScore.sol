@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
@@ -28,11 +28,12 @@ contract MemberScore is ERC20, Ownable {
 
     function proposeNewScore(string memory cid, uint score) public {
         require(totalSeasons > 0, "No season started yet!");
-        currentSeason = totalSeasons - 1;
+        uint currentSeason = totalSeasons - 1;
         currentNonce += 1;
-        Proposal newProposal = Proposal(cid, currentSeason, score);
-        nonceToUser[_msgSender()] = currentNonce;
-        LogNewScore(cid, currentNonce, currentSeason, score);
+        Proposal memory newProposal = Proposal(cid, currentSeason, score);
+        nonceToUser[currentNonce] = _msgSender();
+        proposals[currentNonce] = newProposal;
+        emit LogNewScore(cid, currentNonce, currentSeason, score);
     }
 
     function startNewSeason() public onlyOwner {
@@ -51,6 +52,7 @@ contract MemberScore is ERC20, Ownable {
 
     function transfer(address recipient, uint256 amount) public virtual override returns (bool) {
         require(false, "Transfer not supported for the REP token!");
+        return super.transfer(recipient, amount);
     }
 
     function transferFrom(
@@ -59,5 +61,6 @@ contract MemberScore is ERC20, Ownable {
         uint256 amount
     ) public virtual override returns (bool) {
         require(false, "Transfer not supported for the REP token!");
+        return super.transferFrom(sender, recipient, amount);
     }
 }
