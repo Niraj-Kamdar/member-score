@@ -10,7 +10,7 @@ const PROPS_ADDRESS = 'TBD'
 const Wrapper = styled.div``
 
 const NewPropForm = () => {
-  const [count, useCount] = useState(0)
+  const [count, setCount] = useState(0)
   const [loading, setLoading] = useState(false)
 
   const { provider, web3Provider, address } = useWallet()
