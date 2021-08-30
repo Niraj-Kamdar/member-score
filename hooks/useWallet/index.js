@@ -1,9 +1,11 @@
+import WalletConnectProvider from '@walletconnect/web3-provider'
+import { providers } from 'ethers'
 import { useCallback, useEffect, useReducer } from 'react'
 import Web3modal from 'web3modal'
-import { providers } from 'ethers'
-import WalletConnectProvider from '@walletconnect/web3-provider'
+
 import { getChainData } from '../../util/chains'
-import { walletReducer, initialState } from './reducer'
+
+import { initialState, walletReducer } from './reducer'
 
 // Infura ID:
 const INFURA_ID = 'e99ae8569c9142d58b1d9047ebbed8b8'

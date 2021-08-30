@@ -20,9 +20,9 @@ const NavBar = () => {
     <Wrapper>
       <h1>FWB Props</h1>
       <ul>
-        {address && <li>{address}</li>}
-        {chainId && <li>Using ({chainData.name})</li>}
-      </ul>
+        {address && <li>{address}</li>}{' '}
+        {chainId && <li>Using({chainData.name})</li>}
+      </ul>{' '}
       {!address && (
         <div onClick={connect}>
           <ConnectButton />
